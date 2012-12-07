@@ -1,6 +1,6 @@
 var data; // loaded asynchronously
 
-xy = d3.geo.mercator().translate([-4000,1100]).scale(20000),
+xy = d3.geo.mercator().translate([-4220,1140]).scale(21000),
 path = d3.geo.path().projection(xy);
 
 // var path = d3.geo.path();
