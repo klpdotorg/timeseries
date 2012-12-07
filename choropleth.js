@@ -12,7 +12,7 @@ var districts = svg.append("g")
     .attr("id", "districts")
     .attr("class", "Blues");
 
-d3.json("districts.json", function(json) {
+d3.json("data/districts.json", function(json) {
   districts.selectAll("path")
     .data(json.features)
     .enter().append("path")
@@ -20,7 +20,7 @@ d3.json("districts.json", function(json) {
     .attr("d", path);
 });
 
-d3.json("data04-05.json", function(json) {
+d3.json("data/data04-05.json", function(json) {
   data = json;
   districts.selectAll("path")
       .attr("class", quantize);
