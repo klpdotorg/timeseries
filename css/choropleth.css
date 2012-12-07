@@ -12,6 +12,13 @@ body {
 #districts path {
   stroke: #fff;
   stroke-width: .55px;
+  opacity: 0.5;
+}
+
+#districts path:hover {
+	opacity: 1;
+	stroke-width: 2px;
+	stroke: #bbb;
 }
 
 #states path {
@@ -28,8 +35,20 @@ body {
 
 .name{
 	font-size: 50px;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.value{
+	font-size: 80px;
+	padding-left: 10px;
+	padding-top: 50px;
+}
+
+.year{
 	padding-top: 20px;
 	padding-left: 10px;
+	font-size: 20px;
 }
 
 .graphs {

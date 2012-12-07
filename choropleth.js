@@ -17,7 +17,8 @@ d3.json("data/districts.json", function(json) {
     .data(json.features)
     .enter().append("path")
     .attr("class", data ? quantize : null)
-    .attr("d", path);
+    .attr("d", path)
+    .on("mouseover", mouseover);
 });
 
 d3.json("data/data04-05.json", function(json) {
@@ -31,3 +32,10 @@ function quantize(d) {
   color = "q" + Math.min(7, ~~(district[0]['govt_pass'] / 20)) + "-9";
   return color;
 }
+
+function mouseover(d) {
+ district = data[d.properties['dist_code']];
+ d3.select("#infoname").text(d.properties['DISTSHP']);
+ d3.select("#infoyear").text(district[0]['acad_year']);
+ d3.select("#infovalue").text(district[0]['govt_pass']);
+ }
