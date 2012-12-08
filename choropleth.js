@@ -40,12 +40,19 @@ function mouseover(d) {
  d3.select("#infovalue").text(district[0]['govt_pass']);
  }
 
-function changeYear(a) {
+function change_year(a) {
   d3.selectAll(".label").classed("label-info", false);
   d3.select(".year"+a).classed("label-info", true);
   d3.json("data/data"+a+".json", function(json) {
     data = json;
     districts.selectAll("path")
-    .attr("class", quantize);
+    .transition()
+    .style("opacity", 0.1)
+    .transition()
+    .delay(300)
+    .attr("class", quantize)
+    .transition()
+    .duration(1000)
+    .style("opacity", 1);
     })
   }

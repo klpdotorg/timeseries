@@ -13,13 +13,13 @@ body {
 #districts path {
   stroke: #fff;
   stroke-width: .55px;
-  opacity: 0.5;
+  opacity: 1;
 }
 
 #districts path:hover {
 	opacity: 1;
 	stroke-width: 2px;
-	stroke: #aaa;
+	stroke: #111;
 }
 
 #states path {
