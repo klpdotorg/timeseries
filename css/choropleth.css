@@ -128,3 +128,6 @@ body {
 	background: #08306B;
 }
 
+.label:hover{
+	opacity: 0.5;
+}
