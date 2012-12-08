@@ -1,7 +1,8 @@
 svg {
-  background: #eee;
+  background: #F3F3F3;
   width: 100%;
   height: 500px;
+  border-radius: 6px 6px 6px 6px;
 }
 
 body {
@@ -18,42 +19,112 @@ body {
 #districts path:hover {
 	opacity: 1;
 	stroke-width: 2px;
-	stroke: #bbb;
+	stroke: #aaa;
 }
 
 #states path {
   fill: none;
-  stroke: #fff;
+  stroke: #ccc;
   stroke-width: 1.5px;
 }
 
 .infobox {
-	background-color: #EEEEEE;
+	background-color: #F3F3F3;
 	width: 100%;
 	height: 250px;
 }
 
-.name{
+/*.name{
 	font-size: 50px;
-	padding-top: 10px;
-	padding-left: 10px;
 }
 
 .value{
 	font-size: 80px;
-	padding-left: 10px;
-	padding-top: 50px;
 }
 
 .year{
-	padding-top: 20px;
-	padding-left: 10px;
 	font-size: 20px;
 }
-
+*/
 .graphs {
-	background-color: #EEEEEE;
+	background-color: #F3F3F3;
 	width: 100%;
-	height: 230px;
-	margin-top: 20px;	
+	height: 100%;
+	border-radius: 6px 6px 6px 6px;
 }
+
+#legend {
+    background: none repeat scroll 0 0 #F3F3F3;
+    border: 1px solid #F0F0F0;
+    border-radius: 6px 6px 6px 6px;
+    clear: both;
+    color: #777777;
+    font-size: 11px;
+    line-height: 11px;
+    /*margin: 10px 24px;*/
+    margin-bottom: 5px;
+    overflow: hidden;
+    padding: 5px 5px;
+    width: 100%;
+}
+
+#legend ul {
+	list-style-type: none;
+	overflow: hidden;
+	clear: both;
+}
+
+#legend li {
+	float: left;
+	margin-right: 1px;
+	width: 20px;
+	height: 20px;
+	margin-top: 10px;
+}
+
+#legend p {
+	margin-top: 3px;
+}
+
+#legend p.more {
+	float: right;
+	margin-right: 20px; 
+}
+
+#legend p.less {
+	float: left;
+	margin-left: 25px;
+}
+
+#legend .q1-9{
+	background: #DEEBF7;
+}
+
+#legend .q2-9{
+	background: #C6DBEF;
+}
+
+#legend .q3-9{
+	background: #9ECAE1;
+}
+
+#legend .q4-9{
+	background: #6BAED6;
+}
+
+#legend .q5-9{
+	background: #4292C6;
+}
+
+#legend .q6-9{
+	background: #2171B5;
+}
+
+#legend .q7-9{
+	background: #08519C;
+}
+
+#legend .q8-9{
+	background: #08306B;
+}
+
