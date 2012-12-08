@@ -39,3 +39,13 @@ function mouseover(d) {
  d3.select("#infoyear").text(district[0]['acad_year']);
  d3.select("#infovalue").text(district[0]['govt_pass']);
  }
+
+function changeYear(a) {
+  d3.selectAll(".label").classed("label-info", false);
+  d3.select(".year"+a).classed("label-info", true);
+  d3.json("data/data"+a+".json", function(json) {
+    data = json;
+    districts.selectAll("path")
+    .attr("class", quantize);
+    })
+  }
