@@ -16,7 +16,8 @@ d3.json("data/districts.json", function(json) {
     .enter().append("path")
     .attr("class", data ? quantize : null)
     .attr("d", path)
-    .on("mouseover", mouseover);
+    .on("mouseover", mouseover)
+    .on("mouseout", mouseout);
 });
 
 d3.json("data/data04-05.json", function(json) {
@@ -34,12 +35,17 @@ function quantize(d) {
 function mouseover(d) {
  district = data[d.properties['dist_code']];
  d3.select("#info").classed("hide", false);
+ d3.select("#intro").classed("hide", true);
  d3.select("#infoname").text(d.properties['DISTSHP']);
  d3.select("#infoyear").text(district[0]['acad_year']);
  d3.select("#infovalueg").text(district[0]['govt_pass']);
  d3.select("#infovaluep").text(district[0]['nongovt_pass']);
  }
 
+function mouseout(){
+  d3.select("#info").classed("hide", true);
+  d3.select("#intro").classed("hide", false);
+}
 function change_year(a) {
   d3.selectAll(".label").classed("label-info", false);
   d3.select(".year"+a).classed("label-info", true);
