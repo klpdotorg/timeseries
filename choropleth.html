@@ -4,9 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <title>Karnataka - SSLC Results Insight</title>
     <script type="text/javascript" src="d3/d3.v2.js"></script>
-    <link type="text/css" rel="stylesheet" href="css/choropleth.css"/>
-    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link type="text/css" href="lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link type="text/css" rel="stylesheet" href="lib/colorbrewer/colorbrewer.css"/>
+    <link type="text/css" rel="stylesheet" href="css/choropleth.css"/>
   </head>
   <body>
     <div class="container">
@@ -15,10 +15,24 @@
           <div id="chart"></div>
         </div>
         <div class="span6">
-          <div class="hero-unit">
+          <div class="row-fluid">
+          <div class="infobox hero-unit">
             <p id="infoyear" class="year"></p>
             <h2 id="infoname" class="name"></h2>
-            <h1 id="infovalue" class="value"></h1>
+            <hr>
+            <div class="row-fluid">
+            <div class="span5">
+            <div class="vr">
+              <h5>Government</h5>
+            <h1 id="infovalueg" class="value"></h1>
+            </div>
+            </div>
+            <div class="span4 offset1">
+              <h5>Private</h5>
+            <h1 id="infovaluep" class="value"></h1>
+            </div>
+          </div>
+          </div>
           </div>
         </div>
         <div class="span6">
@@ -58,6 +72,15 @@
       <!-- </div> -->
   </div>
 </div>
+</div>
+
+   <div id="footer">
+      <div class="container">
+        <p class="muted credit"><a href="http://klp.org.in">The Karnataka Learning Partnership. </a>Data from (insert source here).</p>
+
+      </div>
+    </div>
+
   </body>
 <script type="text/javascript" src="choropleth.js"></script>
 </html>
