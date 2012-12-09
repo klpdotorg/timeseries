@@ -33,6 +33,7 @@ function quantize(d) {
 
 function mouseover(d) {
  district = data[d.properties['dist_code']];
+ d3.select("#info").classed("hide", false);
  d3.select("#infoname").text(d.properties['DISTSHP']);
  d3.select("#infoyear").text(district[0]['acad_year']);
  d3.select("#infovalueg").text(district[0]['govt_pass']);
