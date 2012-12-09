@@ -131,3 +131,19 @@ body {
 .label:hover{
 	opacity: 0.5;
 }
+
+.pause {
+    background-image: url("images/pause.png");
+    height: 14px;
+    margin-right: 10px;
+    margin-top: 3px;
+    width: 7px;
+}
+
+.play {
+	cursor: pointer;
+    /*background-image: url("images/plays.svg");*/
+    height: 30px;
+    width: 60px;
+    margin-top: 3px;
+}
