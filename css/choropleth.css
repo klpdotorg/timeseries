@@ -5,10 +5,19 @@ svg {
   border-radius: 6px 6px 6px 6px;
 }
 
-body {
+html, body {
 
-	margin-top: 50px;
+	margin-top: 30px;
+	height: 100%;
 }
+
+#wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	/* Negative indent footer by it's height */
+	margin: 0 auto -60px;
+	}
 
 #districts path {
   stroke: #fff;
@@ -42,11 +51,25 @@ hr {
     border-right:2px solid #000;
 }
 
+      #push,
+      #footer {
+        height: 60px;
+      }
+      #footer {
+        background-color: #f5f5f5;
+      }
+
+@media (max-width: 767px) {
 #footer {
-    height: 40px;
-    background-color: #f5f5f5;
-    margin-top: 50px;
-    padding-top: 20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+}
+
+.credits {
+    margin: 20px 0;
 }
 
 /*.name{
