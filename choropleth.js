@@ -38,8 +38,8 @@ function mouseover(d) {
  d3.select("#intro").classed("hide", true);
  d3.select("#infoname").text(d.properties['DISTSHP']);
  d3.select("#infoyear").text(district[0]['acad_year']);
- d3.select("#infovalueg").text(district[0]['govt_pass']);
- d3.select("#infovaluep").text(district[0]['nongovt_pass']);
+ d3.select("#infovalueg").text(district[0]['govt_pass']+"%");
+ d3.select("#infovaluep").text(district[0]['nongovt_pass']+"%");
  }
 
 function mouseout(){
