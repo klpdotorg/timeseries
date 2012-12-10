@@ -31,6 +31,10 @@ html, body {
 	stroke: #111;
 }
 
+#districts path.clicked {
+	fill: #000;
+}
+
 #states path {
   fill: none;
   stroke: #ccc;
