@@ -35,19 +35,20 @@ d3.json("data/data04-05.json", function(json) {
 });
 
 function quantize(d) {
-  district = data[d.properties['dist_code']];
-  color = "q" + Math.min(7, ~~(district[0]['govt_pass'] / 20)) + "-9";
+  district_data = data[d.properties['dist_code']];
+  color = "q" + Math.min(7, ~~(district_data[0]['govt_pass'] / 20)) + "-9";
   return color;
 }
 
 function mouseover(d) {
- district = data[d.properties['dist_code']];
+ district_data = data[d.properties['dist_code']];
+ console.log(district_data);
  d3.select("#info").classed("hide", false);
  d3.select("#intro").classed("hide", true);
  d3.select("#infoname").text(d.properties['DISTSHP']);
- d3.select("#infoyear").text(district[0]['acad_year']);
- d3.select("#infovalueg").text(district[0]['govt_pass']+"%");
- d3.select("#infovaluep").text(district[0]['nongovt_pass']+"%");
+ d3.select("#infoyear").text(district_data[0]['acad_year']);
+ d3.select("#infovalueg").text(district_data[0]['govt_pass']+"%");
+ d3.select("#infovaluep").text(district_data[0]['nongovt_pass']+"%");
  }
 
 function mouseout(){
@@ -56,7 +57,6 @@ function mouseout(){
 }
 
 function clicked(d, i, district){
-  mouseover(d);
   selected_district_data = d;
   if (clicked_flag == false) {
     selected_district = district;
@@ -74,9 +74,11 @@ function clicked(d, i, district){
   .on("mouseover", mouseover)
   .on("mouseout", mouseout);
   };
+  mouseover(selected_district_data);
 }
 
 function change_year(a) {
+  console.log(a);
   d3.selectAll(".label").classed("label-info", false);
   d3.select(".year"+a).classed("label-info", true);
   d3.json("data/data"+a+".json", function(json) {
@@ -90,8 +92,8 @@ function change_year(a) {
     // .transition()
     // .duration(1000)
     // .style("opacity", 1);
-    })
-    if (selected_district_data) {
+    });
+    if (clicked_flag) {
     d3.select(selected_district).classed("clicked", true);
     mouseover(selected_district_data);
     };
