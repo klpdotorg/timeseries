@@ -42,7 +42,6 @@ function quantize(d) {
 
 function mouseover(d) {
  district_data = data[d.properties['dist_code']];
- console.log(district_data);
  d3.select("#info").classed("hide", false);
  d3.select("#intro").classed("hide", true);
  d3.select("#infoname").text(d.properties['DISTSHP']);
@@ -78,7 +77,6 @@ function clicked(d, i, district){
 }
 
 function change_year(a) {
-  console.log(a);
   d3.selectAll(".label").classed("label-info", false);
   d3.select(".year"+a).classed("label-info", true);
   d3.json("data/data"+a+".json", function(json) {
@@ -92,11 +90,11 @@ function change_year(a) {
     // .transition()
     // .duration(1000)
     // .style("opacity", 1);
-    });
     if (clicked_flag) {
     d3.select(selected_district).classed("clicked", true);
     mouseover(selected_district_data);
-    };
+      };
+    });
   }
 
 var start = d3.select("#start");
