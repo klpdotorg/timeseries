@@ -120,3 +120,47 @@ function update_year() {
   }
 }
 
+/* Code for graphs */
+
+var n = 6, // number of samples
+    m = 2, // number of series
+    datas = d3.range(m).map(function() { return d3.range(n).map(Math.random); });
+
+    console.log(datas);
+
+var w = 400,
+    h = 200,
+    x = d3.scale.linear().domain([0, 1]).range([h, 0]),
+    y0 = d3.scale.ordinal().domain(d3.range(n)).rangeBands([0, w], .2),
+    y1 = d3.scale.ordinal().domain(d3.range(m)).rangeBands([0, y0.rangeBand()]),
+    z = d3.scale.category10();
+
+var vis = d3.select("#graphs")
+  .append("svg:svg")
+  .append("svg:g")
+    .attr("transform", "translate(10,10)");
+
+var g = vis.selectAll("g")
+    .data(datas)
+  .enter().append("svg:g")
+    .attr("fill", function(d, i) { return z(i); })
+    .attr("transform", function(d, i) { return "translate(" + y1(i) + ",0)"; });
+
+var rect = g.selectAll("rect")
+    .data(Object)
+  .enter().append("svg:rect")
+    .attr("transform", function(d, i) { return "translate(" + y0(i) + ",0)"; })
+    .attr("width", y1.rangeBand())
+    .attr("height", x)
+    .attr("y", function(d) { return h - x(d); });
+
+var text = vis.selectAll("text")
+    .data(d3.range(n))
+  .enter().append("svg:text")
+    .attr("class", "group")
+    .attr("transform", function(d, i) { return "translate(" + y0(i) + ",0)"; })
+    .attr("x", y0.rangeBand() / 2)
+    .attr("y", h + 6)
+    .attr("dy", ".71em")
+    .attr("text-anchor", "middle")
+    .text(function(d, i) { return String.fromCharCode(65 + i); });

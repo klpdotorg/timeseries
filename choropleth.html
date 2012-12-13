@@ -1,5 +1,5 @@
-  <!DOCTYPE html>
-  <html>
+    <!DOCTYPE html>
+    <html>
     <head>
       <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,79 +12,81 @@
     </head>
     <body>
       <div id="wrap">
-      <div class="container">
-        <div class="row-fluid">
-          <div class="span6">
-            <div id="chart"></div>
-          </div>
-          <div class="span6">
-            <div class="row-fluid">
-            <div class="infobox hero-unit">
-              <div id="intro">
-                <p>Hover or click a district.</p>
-              </div>
-              <div id="info" class="hide">
-              <p id="infoyear" class="year"></p>
-              <h2 id="infoname" class="name"></h2>
-              <hr>
+        <div class="container">
+          <div class="row-fluid">
+            <div class="span6">
               <div class="row-fluid">
-              <div class="span5">
-              <div class="vr">
-                <h5>Government</h5>
-              <h1 id="infovalueg" class="value"></h1>
+              <div id="chart"></div>
               </div>
-              </div>
-              <div class="span4 offset1">
-                <h5>Private</h5>
-              <h1 id="infovaluep" class="value"></h1>
-              </div>
-            </div>
-            </div>
-          </div>
-            </div>
-          </div>
-          <div class="span6">
-            <div class="graphs">Stub for charts.</div>
-          </div>
-        </div>
-        <div id="controls" class="row-fluid">
-          <div class="span3">
-            <div id="legend">
-              <ul>
-                <li class="q1-9"></li>
-                <li class="q2-9"></li>
-                <li class="q3-9"></li>
-                <li class="q4-9"></li>
-                <li class="q5-9"></li>
-                <li class="q6-9"></li>
-                <li class="q7-9"></li>
-                <li class="q8-9"></li>
-              </ul>
+              <div class="row-fluid">
+                <div class="span6">
+              <div id="legend">
+                <ul>
+                  <li class="q1-9"></li>
+                  <li class="q2-9"></li>
+                  <li class="q3-9"></li>
+                  <li class="q4-9"></li>
+                  <li class="q5-9"></li>
+                  <li class="q6-9"></li>
+                  <li class="q7-9"></li>
+                  <li class="q8-9"></li>
+                </ul>
                 <p class="less">5%</p>
                 <p class="more">100%</p>
             </div>
+            </div>
+            <div class="span4">
+              <a href="javascript:change_year('04-05')" class="label label-info year04-05">2004-2005</a>
+              <a href="javascript:change_year('05-06')" class="label year05-06">2005-2006</a>
+              <a href="javascript:change_year('06-07')" class="label year06-07">2006-2007</a>
+              <a href="javascript:change_year('07-08')" class="label year07-08">2007-2008</a>
+              <a href="javascript:change_year('08-09')" class="label year08-09">2008-2009</a>
+              <a href="javascript:change_year('09-10')" class="label year09-10">2009-2010</a>
+              <a href="javascript:change_year('10-11')" class="label year10-11">2010-2011</a>
+            </div>
+            <div class="span2">
+              <button id="start" class="btn btn-info play"><i class="icon-play"></i></button>
+            </div>
+            </div>
+              </div>
+            <div class="span6">
+              <div class="row-fluid">
+                <div class="infobox hero-unit">
+                  <div id="intro">
+                    <p>Hover or click a district.</p>
+                  </div>
+                  <div id="info" class="hide">
+                    <p id="infoyear" class="year"></p>
+                    <h2 id="infoname" class="name"></h2>
+                    <hr>
+                    <div class="row-fluid">
+                      <div class="span5">
+                        <div class="vr">
+                          <h5>Government</h5>
+                          <h1 id="infovalueg" class="value"></h1>
+                        </div>
+                      </div>
+                      <div class="span4 offset1">
+                        <h5>Private</h5>
+                        <h1 id="infovaluep" class="value"></h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="span6">
+              <div id="graphs"></div>
+            </div>
           </div>
-          <div class="span2">
-            <a href="javascript:change_year('04-05')" class="label label-info year04-05">2004-2005</a>
-            <a href="javascript:change_year('05-06')" class="label year05-06">2005-2006</a>
-            <a href="javascript:change_year('06-07')" class="label year06-07">2006-2007</a>
-            <a href="javascript:change_year('07-08')" class="label year07-08">2007-2008</a>
-            <a href="javascript:change_year('08-09')" class="label year08-09">2008-2009</a>
-            <a href="javascript:change_year('09-10')" class="label year09-10">2009-2010</a>
-            <a href="javascript:change_year('10-11')" class="label year10-11">2010-2011</a>
         </div>
-        <div class="span1">
-          <button id="start" class="btn btn-info play"><i class="icon-play"></i></button>
-    </div>
-  </div>
-  </div>
-   <div id="push"></div>
-  </div>
-     <div id="footer">
+        <div id="push"></div>
+      </div>
+      <div id="footer">
         <div class="container">
           <p class="muted credits"><a href="http://klp.org.in">The Karnataka Learning Partnership. </a>Data from the Karnataka Secondary Education Examination Board.</p>
         </div>
       </div>
     </body>
     <script type="text/javascript" src="choropleth.js"></script>
-  </html>
+    </html>

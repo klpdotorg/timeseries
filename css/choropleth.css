@@ -1,7 +1,6 @@
 svg {
   background: #F3F3F3;
   width: 100%;
-  height: 500px;
   border-radius: 6px 6px 6px 6px;
 }
 
@@ -18,6 +17,13 @@ html, body {
 	/* Negative indent footer by it's height */
 	margin: 0 auto -60px;
 	}
+#chart svg {
+	height: 500px;
+}
+
+#graphs svg {
+	height: 300px;	
+}
 
 #districts path {
   stroke: #fff;
@@ -45,6 +51,7 @@ html, body {
 	background-color: #F3F3F3;
 	border-radius: 6px 6px 6px 6px;
 	line-height: 15px;
+	margin-bottom: 20px;
 }
 
 hr {
@@ -55,11 +62,11 @@ hr {
     border-right:2px solid #000;
 }
 
-      #push,
-      #footer {
-        height: 60px;
+      #push {
+      	height: 80px;
       }
       #footer {
+        height: 60px;
         background-color: #f5f5f5;
       }
 
@@ -88,12 +95,7 @@ hr {
 	font-size: 20px;
 }
 */
-.graphs {
-	background-color: #F3F3F3;
-	width: 100%;
-	height: 100%;
-	border-radius: 6px 6px 6px 6px;
-}
+
 
 #legend {
     background: none repeat scroll 0 0 #F3F3F3;
@@ -107,7 +109,7 @@ hr {
     margin-bottom: 5px;
     overflow: hidden;
     padding: 5px 5px;
-    width: 100%;
+    /*width: 100%;*/
 }
 
 #legend ul {
