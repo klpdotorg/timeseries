@@ -96,6 +96,14 @@ hr {
 }
 */
 
+.value #infovalueg{
+
+	color: #9ECAE1;
+}
+
+.value #infovaluep{
+	color: #08306B;
+}
 
 #legend {
     background: none repeat scroll 0 0 #F3F3F3;

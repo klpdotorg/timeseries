@@ -76,6 +76,7 @@ function clicked(d, i, district){
   .on("mouseover", mouseover)
   .on("mouseout", mouseout);
   };
+
   mouseover(selected_district_data);
   draw(selected_district_data.properties['dist_code']);
 }
@@ -128,7 +129,6 @@ function update_year() {
 
 var n = 7, // number of samples
     m = 2; // number of series
-    // datas = d3.range(m).map(function() { return d3.range(n).map(Math.random); });
 
 var w = 435,
     h = 200,
@@ -139,7 +139,6 @@ var w = 435,
 
 d3.json("data/govt_vs_non.json", function(json) {
   chart_data = json;
-  // draw();
 });
 
 var vis = d3.select("#graphs")
@@ -148,10 +147,8 @@ var vis = d3.select("#graphs")
     .attr("transform", "translate(10,10)");
 
 function draw(code) {
-  new_data =chart_data[code];
-  console.log(new_data);
 var g = vis.selectAll("g")
-    .data(new_data)
+    .data(chart_data[code])
   .enter().append("svg:g")
     .attr("fill", function(d, i) { return colors[i]; })
     .attr("transform", function(d, i) { return "translate(" + y1(i) + ",0)"; });
@@ -159,11 +156,11 @@ var g = vis.selectAll("g")
 var rect = g.selectAll("rect")
     .data(Object)
   .enter().append("svg:rect")
-    .transition()
-    .delay(100)
     .attr("transform", function(d, i) { return "translate(" + y0(i) + ",0)"; })
     .attr("width", y1.rangeBand())
     .attr("height", x)
+    .transition()
+    .delay(50)
     .attr("y", function(d) { return h - x(d); });
 
 var text = vis.selectAll("text")
