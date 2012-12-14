@@ -1,4 +1,5 @@
 var data; // loaded asynchronously
+var chart_data;
 var selected_district = null;
 var clicked_flag = false;
 var selected_district_data = null;
@@ -33,6 +34,8 @@ d3.json("data/data04-05.json", function(json) {
   districts.selectAll("path")
       .attr("class", quantize);
 });
+
+
 
 function quantize(d) {
   district_data = data[d.properties['dist_code']];
@@ -74,6 +77,7 @@ function clicked(d, i, district){
   .on("mouseout", mouseout);
   };
   mouseover(selected_district_data);
+  draw(selected_district_data.properties['dist_code']);
 }
 
 function change_year(a) {
@@ -122,33 +126,41 @@ function update_year() {
 
 /* Code for graphs */
 
-var n = 6, // number of samples
-    m = 2, // number of series
-    datas = d3.range(m).map(function() { return d3.range(n).map(Math.random); });
+var n = 7, // number of samples
+    m = 2; // number of series
+    // datas = d3.range(m).map(function() { return d3.range(n).map(Math.random); });
 
-    console.log(datas);
-
-var w = 400,
+var w = 435,
     h = 200,
-    x = d3.scale.linear().domain([0, 1]).range([h, 0]),
+    x = d3.scale.linear().domain([50, 100]).range([h, 0]),
     y0 = d3.scale.ordinal().domain(d3.range(n)).rangeBands([0, w], .2),
     y1 = d3.scale.ordinal().domain(d3.range(m)).rangeBands([0, y0.rangeBand()]),
-    z = d3.scale.category10();
+    colors = ["#9ECAE1", "#08306B"];
+
+d3.json("data/govt_vs_non.json", function(json) {
+  chart_data = json;
+  // draw();
+});
 
 var vis = d3.select("#graphs")
   .append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(10,10)");
 
+function draw(code) {
+  new_data =chart_data[code];
+  console.log(new_data);
 var g = vis.selectAll("g")
-    .data(datas)
+    .data(new_data)
   .enter().append("svg:g")
-    .attr("fill", function(d, i) { return z(i); })
+    .attr("fill", function(d, i) { return colors[i]; })
     .attr("transform", function(d, i) { return "translate(" + y1(i) + ",0)"; });
 
 var rect = g.selectAll("rect")
     .data(Object)
   .enter().append("svg:rect")
+    .transition()
+    .delay(100)
     .attr("transform", function(d, i) { return "translate(" + y0(i) + ",0)"; })
     .attr("width", y1.rangeBand())
     .attr("height", x)
@@ -163,4 +175,6 @@ var text = vis.selectAll("text")
     .attr("y", h + 6)
     .attr("dy", ".71em")
     .attr("text-anchor", "middle")
-    .text(function(d, i) { return String.fromCharCode(65 + i); });
+    .text(function(d, i) { return years[i]; });
+ 
+ }
