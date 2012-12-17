@@ -72,13 +72,14 @@ function clicked(d, i, district){
   selected_district = district;
   d3.select(old_district).classed("clicked", false);
   d3.select(district).classed("clicked", true);
+  redraw(chart_data[selected_district_data.properties['dist_code']]);
   all_districts
   .on("mouseover", mouseover)
   .on("mouseout", mouseout);
   };
 
   mouseover(selected_district_data);
-  draw(selected_district_data.properties['dist_code']);
+  draw(chart_data[selected_district_data.properties['dist_code']]);
 }
 
 function change_year(a) {
@@ -141,20 +142,28 @@ d3.json("data/govt_vs_non.json", function(json) {
   chart_data = json;
 });
 
+var new_d;
+
 var vis = d3.select("#graphs")
   .append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(10,10)");
 
-function draw(code) {
+function draw(data) {
+new_data = data;
+// console.log(new_data);
 var g = vis.selectAll("g")
-    .data(chart_data[code])
+    .data(new_data)
   .enter().append("svg:g")
     .attr("fill", function(d, i) { return colors[i]; })
     .attr("transform", function(d, i) { return "translate(" + y1(i) + ",0)"; });
 
+// var rect = g.selectAll("rect")
+// new_d = rect.data(function(d){return d;})
+// new_d
+
 var rect = g.selectAll("rect")
-    .data(Object)
+    .data(function(new_data){return new_data;})
   .enter().append("svg:rect")
     .attr("transform", function(d, i) { return "translate(" + y0(i) + ",0)"; })
     .attr("width", y1.rangeBand())
@@ -174,4 +183,28 @@ var text = vis.selectAll("text")
     .attr("text-anchor", "middle")
     .text(function(d, i) { return years[i]; });
  
+ }
+
+ function redraw(data) {
+  console.log(data);
+  var g = vis.selectAll("g");
+  g.selectAll("rect")
+    .data(function(data){return data;})
+    .attr("transform", function(d, i) { return "translate(" + y0(i) + ",0)"; })
+    .attr("width", y1.rangeBand())
+    .attr("height", x)
+    .transition()
+    .delay(50)
+    .attr("y", function(d) { return h - x(d); });
+
+ // var text = vis.selectAll("text")
+ //    .data(d3.range(n))
+ //  .enter().append("svg:text")
+ //    .attr("class", "group")
+ //    .attr("transform", function(d, i) { return "translate(" + y0(i) + ",0)"; })
+ //    .attr("x", y0.rangeBand() / 2)
+ //    .attr("y", h + 6)
+ //    .attr("dy", ".71em")
+ //    .attr("text-anchor", "middle")
+ //    .text(function(d, i) { return years[i]; });
  }
