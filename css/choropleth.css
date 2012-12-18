@@ -10,6 +10,10 @@ html, body {
 	height: 100%;
 }
 
+body {
+font-family: 'Droid Sans', sans-serif;
+}
+
 #wrap {
 	min-height: 100%;
 	height: auto !important;
@@ -198,4 +202,8 @@ hr {
     height: 30px;
     width: 60px;
     margin-top: 3px;
+}
+
+.label {
+	font-size: 10px;
 }

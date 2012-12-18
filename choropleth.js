@@ -105,6 +105,7 @@ var i = 0;
 
 function play() {
   d3.select(".play").classed("btn-info", false);
+  start.on("click", null);
   change_year(years[i]);
   setTimeout(update_year, 2000);
 
@@ -118,6 +119,7 @@ function update_year() {
   else {
     i=0;
     d3.select(".play").classed("btn-info", true);
+    start.on("click", play);
   }
 }
 
