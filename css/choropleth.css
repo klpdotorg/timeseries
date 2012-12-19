@@ -25,8 +25,14 @@ font-family: 'Droid Sans', sans-serif;
 	height: 500px;
 }
 
+	
+#graphs {
+	color: #7c7c7c;
+}
+
 #graphs svg {
-	height: 300px;	
+	height: 200px;
+
 }
 
 #districts path {
@@ -59,11 +65,11 @@ font-family: 'Droid Sans', sans-serif;
 }
 
 hr {
-	border-color: #000;
+	border-color: #7c7c7c;
 }
 
 .vr {
-    border-right:2px solid #000;
+    border-right:2px solid #7c7c7c;
 }
 
       #push {
@@ -206,4 +212,11 @@ hr {
 
 .label {
 	font-size: 10px;
+}
+
+.head {
+  color: #7c7c7c;
+  /*border-radius: 6px 6px 6px 6px;*/
+  margin-bottom: 20px;
+  /*padding-left: 10px;*/
 }

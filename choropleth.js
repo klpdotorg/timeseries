@@ -129,7 +129,7 @@ var n = 7, // number of samples
     m = 2; // number of series
 
     var w = 435,
-    h = 200,
+    h = 150,
     x = d3.scale.linear().domain([50, 100]).range([h, 0]),
     y0 = d3.scale.ordinal().domain(d3.range(n)).rangeBands([0, w], .2),
     y1 = d3.scale.ordinal().domain(d3.range(m)).rangeBands([0, y0.rangeBand()]),
