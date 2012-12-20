@@ -194,23 +194,23 @@ var n = 7, // number of samples
 // data to associate with each number, replace each number with an object, e.g.,
 // `{key: "value"}`.
 var data_pie = [
-  [11975,  5871],
-  [ 1951, 10048],
-  [ 8010, 16145],
-  [ 1013,   990],
-  [ 2234,   990],
-  [ 3494,  2340],
-  [ 4579, 2348]
+  [83, 79],
+  [ 50, 71],
+  [ 77, 75],
+  [ 89,   79],
+  [ 76,   74],
+  [ 78,  74],
+  [ 73, 73]
 ];
 
 var data_pie2 = [
-  [11975,  5871],
-  [ 1951, 10048],
-  [ 8010, 16145],
-  [ 1013,   990],
-  [ 2234,   990],
-  [ 3494,  2340],
-  [ 4579, 2348]
+  [84, 79],
+  [ 64, 71],
+  [ 77, 70],
+  [ 89,   60],
+  [ 73,   74],
+  [ 68,  74],
+  [ 65, 73]
 ];
 // Define the margin, radius, and color scale. The color scale will be
 // assigned by index, but if you define your data using objects, you could pass
@@ -243,6 +243,12 @@ donuts.selectAll("path")
     .outerRadius(r))
     .style("fill", function(d, i) { return z(i); });
 
+
+donuts.append("text")
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(function(d, i) { return years[i]; });
+
 /* Second layer of donuts */
 
 var donuts2 = d3.select("#donuts2").selectAll("svg")
@@ -252,7 +258,7 @@ var donuts2 = d3.select("#donuts2").selectAll("svg")
     .attr("height", (r + m) * 2)
   .append("svg:g")
     .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")");
-
+  
 // The data for each svg:svg element is a row of numbers (an array). We pass
 // that to d3.layout.pie to compute the angles for each arc. These start and end
 // angles are passed to d3.svg.arc to draw arcs! Note that the arc radius is
@@ -263,4 +269,10 @@ donuts2.selectAll("path")
     .attr("d", d3.svg.arc()
     .innerRadius(r / 2)
     .outerRadius(r))
-    .style("fill", function(d, i) { return z(i); })
+    .style("fill", function(d, i) { return z(i); });
+
+
+donuts2.append("text")
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(function(d, i) { return years[i]; });

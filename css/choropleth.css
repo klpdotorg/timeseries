@@ -36,15 +36,19 @@ font-family: 'Droid Sans', sans-serif;
 }
 
 #donuts svg {
+	background: none;
 	width: 100px;
 	height: 100px;
 	margin-left: 10px;
+	font-size: 10px;
 }
 
 #donuts2 svg {
+	background: none;
 	width: 100px;
 	height: 100px;
 	margin-left: 10px;
+	font-size: 10px;
 }
 
 #districts path {
