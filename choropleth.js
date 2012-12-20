@@ -186,3 +186,81 @@ var n = 7, // number of samples
       .delay(50)
       .attr("y", function(d) { return h - x(d); });
     }
+
+
+/* Code for pie */
+
+// Define the data as a two-dimensional array of numbers. If you had other
+// data to associate with each number, replace each number with an object, e.g.,
+// `{key: "value"}`.
+var data_pie = [
+  [11975,  5871],
+  [ 1951, 10048],
+  [ 8010, 16145],
+  [ 1013,   990],
+  [ 2234,   990],
+  [ 3494,  2340],
+  [ 4579, 2348]
+];
+
+var data_pie2 = [
+  [11975,  5871],
+  [ 1951, 10048],
+  [ 8010, 16145],
+  [ 1013,   990],
+  [ 2234,   990],
+  [ 3494,  2340],
+  [ 4579, 2348]
+];
+// Define the margin, radius, and color scale. The color scale will be
+// assigned by index, but if you define your data using objects, you could pass
+// in a named field from the data object instead, such as `d.name`. Colors
+// are assigned lazily, so if you want deterministic behavior, define a domain
+// for the color scale.
+var m = 10,
+    r = 40,
+    z = d3.scale.category20c();
+
+// Insert an svg:svg element (with margin) for each row in our dataset. A
+// child svg:g element translates the origin to the pie center.
+var donuts = d3.select("#donuts").selectAll("svg")
+    .data(data_pie)
+  .enter().append("svg:svg")
+    .attr("width", (r + m) * 2)
+    .attr("height", (r + m) * 2)
+  .append("svg:g")
+    .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")");
+
+// The data for each svg:svg element is a row of numbers (an array). We pass
+// that to d3.layout.pie to compute the angles for each arc. These start and end
+// angles are passed to d3.svg.arc to draw arcs! Note that the arc radius is
+// specified on the arc, not the layout.
+donuts.selectAll("path")
+    .data(d3.layout.pie())
+  .enter().append("svg:path")
+    .attr("d", d3.svg.arc()
+    .innerRadius(r / 2)
+    .outerRadius(r))
+    .style("fill", function(d, i) { return z(i); });
+
+/* Second layer of donuts */
+
+var donuts2 = d3.select("#donuts2").selectAll("svg")
+    .data(data_pie2)
+  .enter().append("svg:svg")
+    .attr("width", (r + m) * 2)
+    .attr("height", (r + m) * 2)
+  .append("svg:g")
+    .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")");
+
+// The data for each svg:svg element is a row of numbers (an array). We pass
+// that to d3.layout.pie to compute the angles for each arc. These start and end
+// angles are passed to d3.svg.arc to draw arcs! Note that the arc radius is
+// specified on the arc, not the layout.
+donuts2.selectAll("path")
+    .data(d3.layout.pie())
+  .enter().append("svg:path")
+    .attr("d", d3.svg.arc()
+    .innerRadius(r / 2)
+    .outerRadius(r))
+    .style("fill", function(d, i) { return z(i); })

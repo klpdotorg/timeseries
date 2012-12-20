@@ -35,6 +35,18 @@ font-family: 'Droid Sans', sans-serif;
 
 }
 
+#donuts svg {
+	width: 100px;
+	height: 100px;
+	margin-left: 10px;
+}
+
+#donuts2 svg {
+	width: 100px;
+	height: 100px;
+	margin-left: 10px;
+}
+
 #districts path {
   stroke: #fff;
   stroke-width: .55px;
@@ -219,4 +231,14 @@ hr {
   /*border-radius: 6px 6px 6px 6px;*/
   margin-bottom: 20px;
   /*padding-left: 10px;*/
+}
+
+.gender {
+	margin-top: 25px;
+}
+
+.boygirl {
+	background-image: url("../images/bg.png");
+	background-repeat: no-repeat;
+	height: 200px;
 }
