@@ -35,20 +35,23 @@ font-family: 'Droid Sans', sans-serif;
 
 }
 
-#donuts svg {
+.bg svg {
+	width: 30px;
+	height: 50px;
 	background: none;
-	width: 100px;
-	height: 100px;
-	margin-left: 10px;
-	font-size: 10px;
+	/*fill: #7c7c7c;*/
 }
 
-#donuts2 svg {
-	background: none;
-	width: 100px;
-	height: 100px;
-	margin-left: 10px;
-	font-size: 10px;
+.year {
+	text-align: center;
+}
+
+.dominant {
+fill: red;
+}
+
+.low {
+	fill: #7c7c7c;
 }
 
 #districts path {

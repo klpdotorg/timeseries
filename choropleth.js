@@ -188,91 +188,53 @@ var n = 7, // number of samples
     }
 
 
-/* Code for pie */
+/* Icons */
 
-// Define the data as a two-dimensional array of numbers. If you had other
-// data to associate with each number, replace each number with an object, e.g.,
-// `{key: "value"}`.
-var data_pie = [
-  [83, 79],
-  [ 50, 71],
-  [ 77, 75],
-  [ 89,   79],
-  [ 76,   74],
-  [ 78,  74],
-  [ 73, 73]
-];
+var imported_node;
 
-var data_pie2 = [
-  [84, 79],
-  [ 64, 71],
-  [ 77, 70],
-  [ 89,   60],
-  [ 73,   74],
-  [ 68,  74],
-  [ 65, 73]
-];
-// Define the margin, radius, and color scale. The color scale will be
-// assigned by index, but if you define your data using objects, you could pass
-// in a named field from the data object instead, such as `d.name`. Colors
-// are assigned lazily, so if you want deterministic behavior, define a domain
-// for the color scale.
-var m = 10,
-    r = 40,
-    z = d3.scale.category20c();
-
-// Insert an svg:svg element (with margin) for each row in our dataset. A
-// child svg:g element translates the origin to the pie center.
-var donuts = d3.select("#donuts").selectAll("svg")
-    .data(data_pie)
-  .enter().append("svg:svg")
-    .attr("width", (r + m) * 2)
-    .attr("height", (r + m) * 2)
-  .append("svg:g")
-    .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")");
-
-// The data for each svg:svg element is a row of numbers (an array). We pass
-// that to d3.layout.pie to compute the angles for each arc. These start and end
-// angles are passed to d3.svg.arc to draw arcs! Note that the arc radius is
-// specified on the arc, not the layout.
-donuts.selectAll("path")
-    .data(d3.layout.pie())
-  .enter().append("svg:path")
-    .attr("d", d3.svg.arc()
-    .innerRadius(r / 2)
-    .outerRadius(r))
-    .style("fill", function(d, i) { return z(i); });
+d3.json("data/sample_bg.json", function(json) {
+  samples = json;
+  color_icons();
+});
 
 
-donuts.append("text")
-      .attr("dy", ".35em")
-      .style("text-anchor", "middle")
-      .text(function(d, i) { return years[i]; });
+d3.xml("images/girl.svg", "image/svg+xml", function(xml) {
+    imported_node = document.importNode(xml.documentElement, true);
+    d3.selectAll(".bg").each(append_all);
+  });
 
-/* Second layer of donuts */
+d3.xml("images/boy.svg", "image/svg+xml", function(xml) {
+    imported_node = document.importNode(xml.documentElement, true);
+    d3.selectAll(".bg").each(append_all);
+  });
 
-var donuts2 = d3.select("#donuts2").selectAll("svg")
-    .data(data_pie2)
-  .enter().append("svg:svg")
-    .attr("width", (r + m) * 2)
-    .attr("height", (r + m) * 2)
-  .append("svg:g")
-    .attr("transform", "translate(" + (r + m) + "," + (r + m) + ")");
-  
-// The data for each svg:svg element is a row of numbers (an array). We pass
-// that to d3.layout.pie to compute the angles for each arc. These start and end
-// angles are passed to d3.svg.arc to draw arcs! Note that the arc radius is
-// specified on the arc, not the layout.
-donuts2.selectAll("path")
-    .data(d3.layout.pie())
-  .enter().append("svg:path")
-    .attr("d", d3.svg.arc()
-    .innerRadius(r / 2)
-    .outerRadius(r))
-    .style("fill", function(d, i) { return z(i); });
+function append_all() {
+var new_node = imported_node.cloneNode(true);
+d3.select(this).node().appendChild(new_node);
+}
 
 
-donuts2.append("text")
-      .attr("dy", ".35em")
-      .style("text-anchor", "middle")
-      .text(function(d, i) { return years[i]; });
+function color_icons() {
+  var govt = samples['BA'][0];  
+  var pvt = samples['BA'][1];
+  for (var i=0; i<govt.length; i++) {
+    if (govt[i][0]<govt[i][1]) {
+      d3.select("#bgg"+years[i]).select("#boy").transition().delay(500).attr("fill", "red");
+      d3.select("#bgg"+years[i]).select("#girl").attr("fill", "#7c7c7c");
+    }
+    else {
+      d3.select("#bgg"+years[i]).select("#boy").attr("fill", "#7c7c7c");
+      d3.select("#bgg"+years[i]).select("#girl").attr("fill", "red");
+    };
+  };
+  for (var i=0; i<pvt.length; i++) {
+    if (pvt[i][0]<pvt[i][1]) {
+      d3.select("#bgp"+years[i]).select("#boy").attr("fill", "red");
+      d3.select("#bgp"+years[i]).select("#girl").attr("fill", "#7c7c7c");
+    }
+    else {
+      d3.select("#bgp"+years[i]).select("#boy").attr("fill", "#7c7c7c");
+      d3.select("#bgp"+years[i]).select("#girl").attr("fill", "red");
+    };
+  };
+};
