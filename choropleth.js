@@ -3,6 +3,8 @@ var chart_data;
 var selected_district = null;
 var clicked_flag = false;
 var selected_district_data = null;
+var imported_node;
+var girl_vs_boy;
 
 xy = d3.geo.mercator().translate([-4220,1140]).scale(21000),
 path = d3.geo.path().projection(xy);
@@ -38,6 +40,12 @@ d3.json("data/data04-05.json", function(json) {
 d3.json("data/govt_vs_non.json", function(json) {
   chart_data = json;
 });
+
+
+d3.json("data/girl_vs_boy.json", function(json) {
+  girl_vs_boy = json;
+});
+
 
 function quantize(d) {
   district_data = data[d.properties['dist_code']];
@@ -81,6 +89,7 @@ function clicked(d, i, district){
     .on("mouseout", mouseout);
   };
 
+  color_icons(selected_district_data.properties['dist_code']);
   mouseover(selected_district_data);
 }
 
@@ -190,13 +199,6 @@ var n = 7, // number of samples
 
 /* Icons */
 
-var imported_node;
-
-d3.json("data/sample_bg.json", function(json) {
-  samples = json;
-  color_icons();
-});
-
 
 d3.xml("images/girl.svg", "image/svg+xml", function(xml) {
     imported_node = document.importNode(xml.documentElement, true);
@@ -214,27 +216,27 @@ d3.select(this).node().appendChild(new_node);
 }
 
 
-function color_icons() {
-  var govt = samples['BA'][0];  
-  var pvt = samples['BA'][1];
+function color_icons(code) {
+  var govt = girl_vs_boy[code][0];  
+  var pvt = girl_vs_boy[code][1];
   for (var i=0; i<govt.length; i++) {
     if (govt[i][0]<govt[i][1]) {
-      d3.select("#bgg"+years[i]).select("#boy").transition().delay(500).attr("fill", "red");
+      d3.select("#bgg"+years[i]).select("#boy").transition().delay(200).attr("fill", "red");
       d3.select("#bgg"+years[i]).select("#girl").attr("fill", "#7c7c7c");
     }
     else {
       d3.select("#bgg"+years[i]).select("#boy").attr("fill", "#7c7c7c");
-      d3.select("#bgg"+years[i]).select("#girl").attr("fill", "red");
+      d3.select("#bgg"+years[i]).select("#girl").transition().delay(200).attr("fill", "red");
     };
   };
   for (var i=0; i<pvt.length; i++) {
     if (pvt[i][0]<pvt[i][1]) {
-      d3.select("#bgp"+years[i]).select("#boy").attr("fill", "red");
+      d3.select("#bgp"+years[i]).select("#boy").transition().delay(200).attr("fill", "red");
       d3.select("#bgp"+years[i]).select("#girl").attr("fill", "#7c7c7c");
     }
     else {
       d3.select("#bgp"+years[i]).select("#boy").attr("fill", "#7c7c7c");
-      d3.select("#bgp"+years[i]).select("#girl").attr("fill", "red");
+      d3.select("#bgp"+years[i]).select("#girl").transition().delay(200).attr("fill", "red");
     };
   };
 };
