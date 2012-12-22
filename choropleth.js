@@ -200,6 +200,11 @@ var n = 7, // number of samples
 /* Icons */
 
 
+function girl_mo(){
+  console.log(this);
+  d3.select(this).attr("fill", "#ccc");
+}
+
 d3.xml("images/girl.svg", "image/svg+xml", function(xml) {
     imported_node = document.importNode(xml.documentElement, true);
     d3.selectAll(".bg").each(append_all);
@@ -215,6 +220,7 @@ var new_node = imported_node.cloneNode(true);
 d3.select(this).node().appendChild(new_node);
 }
 
+// d3.select("#bgg04-05").select("#girl").on("click", girl_mo);
 
 function color_icons(code) {
   var govt = girl_vs_boy[code][0];  
@@ -222,6 +228,7 @@ function color_icons(code) {
   for (var i=0; i<govt.length; i++) {
     if (govt[i][0]<govt[i][1]) {
       d3.select("#bgg"+years[i]).select("#boy").transition().delay(200).attr("fill", "red");
+
       d3.select("#bgg"+years[i]).select("#girl").attr("fill", "#7c7c7c");
     }
     else {

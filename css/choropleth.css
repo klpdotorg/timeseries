@@ -35,14 +35,18 @@ font-family: 'Droid Sans', sans-serif;
 
 }
 
+.row-fluid .bg {
+	width: 110px;
+}
 .bg svg {
-	width: 30px;
-	height: 60px;
+	width: 50px;
+	height: 80px;
 	background: none;
 	/*fill: #7c7c7c;*/
 }
 
-.year {
+.yearbg .field {
+	width: 100px;
 	text-align: center;
 }
 
@@ -242,10 +246,17 @@ hr {
 
 .gender {
 	margin-top: 25px;
+	color: #7c7c7c;
 }
 
 .boygirl {
 	background-image: url("../images/bg.png");
 	background-repeat: no-repeat;
 	height: 200px;
+}
+
+.infobg {
+	/*text-align: left;*/
+	/*padding-left: 250px;*/
+
 }
