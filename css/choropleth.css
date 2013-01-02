@@ -35,8 +35,16 @@ font-family: 'Droid Sans', sans-serif;
 
 }
 
+#subjects {
+	margin-top: 20px;
+}
+
+#subjects svg {
+	width: 100%;
+}
+
 .row-fluid .bg {
-	width: 116px;
+	width: 117px;
 }
 .bg svg {
 	width: 40px;
@@ -46,8 +54,9 @@ font-family: 'Droid Sans', sans-serif;
 }
 
 .yearbg .field {
-	width: 114px;
-	text-align: center;
+	width: 116px;
+	text-align: left;
+	padding-left: 25px;
 }
 
 .dominant {

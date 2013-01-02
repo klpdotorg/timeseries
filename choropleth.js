@@ -5,6 +5,7 @@ var clicked_flag = false;
 var selected_district_data = null;
 var imported_node;
 var girl_vs_boy;
+var math, english, kannada;
 
 xy = d3.geo.mercator().translate([-4220,1140]).scale(21000),
 path = d3.geo.path().projection(xy);
@@ -46,6 +47,17 @@ d3.json("data/girl_vs_boy.json", function(json) {
   girl_vs_boy = json;
 });
 
+d3.json("data/math.json", function(json) {
+  math = json;
+});
+
+d3.json("data/english.json", function(json) {
+  english = json;
+});
+
+d3.json("data/kannada.json", function(json) {
+  kannada = json;
+});
 
 function quantize(d) {
   district_data = data[d.properties['dist_code']];
@@ -76,6 +88,9 @@ function clicked(d, i, district){
     districts.selectAll("path").on("mouseout", null);
     districts.selectAll("path").on("mouseover", null);
     draw(chart_data[selected_district_data.properties['dist_code']]);
+    subj_draw(math[selected_district_data.properties['dist_code']], math_vis);
+    subj_draw(english[selected_district_data.properties['dist_code']], english_vis);
+    subj_draw(kannada[selected_district_data.properties['dist_code']], kannada_vis);
     clicked_flag = true;
   }
   else {
@@ -84,6 +99,9 @@ function clicked(d, i, district){
     d3.select(old_district).classed("clicked", false);
     d3.select(district).classed("clicked", true);
     redraw(chart_data[selected_district_data.properties['dist_code']]);
+    subj_redraw(math[selected_district_data.properties['dist_code']], math_vis);
+    subj_redraw(english[selected_district_data.properties['dist_code']], english_vis);
+    subj_redraw(kannada[selected_district_data.properties['dist_code']], kannada_vis);
     all_districts
     .on("mouseover", mouseover)
     .on("mouseout", mouseout);
@@ -201,7 +219,6 @@ var n = 7, // number of samples
 
 
 function girl_mo(){
-  console.log(this);
   d3.select(this).attr("fill", "#ccc");
 }
 
@@ -227,23 +244,95 @@ function color_icons(code) {
   var pvt = girl_vs_boy[code][1];
   for (var i=0; i<govt.length; i++) {
     if (govt[i][0]<govt[i][1]) {
-      d3.select("#bgg"+years[i]).select("#boy").transition().delay(200).attr("fill", "red");
+      d3.select("#bgg"+years[i]).select("#boy").transition().delay(200).attr("fill", "#098a05");
 
-      d3.select("#bgg"+years[i]).select("#girl").attr("fill", "#7c7c7c");
+      d3.select("#bgg"+years[i]).select("#girl").attr("fill", "#a6a6a6");
     }
     else {
-      d3.select("#bgg"+years[i]).select("#boy").attr("fill", "#7c7c7c");
-      d3.select("#bgg"+years[i]).select("#girl").transition().delay(200).attr("fill", "red");
+      d3.select("#bgg"+years[i]).select("#boy").attr("fill", "#a6a6a6");
+      d3.select("#bgg"+years[i]).select("#girl").transition().delay(200).attr("fill", "#098a05");
     };
   };
   for (var i=0; i<pvt.length; i++) {
     if (pvt[i][0]<pvt[i][1]) {
-      d3.select("#bgp"+years[i]).select("#boy").transition().delay(200).attr("fill", "red");
-      d3.select("#bgp"+years[i]).select("#girl").attr("fill", "#7c7c7c");
+      d3.select("#bgp"+years[i]).select("#boy").transition().delay(200).attr("fill", "#098a05");
+      d3.select("#bgp"+years[i]).select("#girl").attr("fill", "#a6a6a6");
     }
     else {
-      d3.select("#bgp"+years[i]).select("#boy").attr("fill", "#7c7c7c");
-      d3.select("#bgp"+years[i]).select("#girl").transition().delay(200).attr("fill", "red");
+      d3.select("#bgp"+years[i]).select("#boy").attr("fill", "#a6a6a6");
+      d3.select("#bgp"+years[i]).select("#girl").transition().delay(200).attr("fill", "#098a05");
     };
   };
 };
+
+/* Subject charts */
+
+    var subj_w = 250,
+    subj_h = 60,
+    subj_x = d3.scale.linear().domain([50, 100]).range([subj_h, 0]),
+    subj_y0 = d3.scale.ordinal().domain(d3.range(n)).rangeBands([0, subj_w], .2),
+    subj_y1 = d3.scale.ordinal().domain(d3.range(m)).rangeBands([0, subj_y0.rangeBand()]);
+
+    var math_vis = d3.select("#math")
+    .append("svg:svg")
+    .append("svg:g")
+    .attr("transform", "translate(20,-30)");
+
+
+    var english_vis = d3.select("#english")
+    .append("svg:svg")
+    .append("svg:g")
+    .attr("transform", "translate(20,-30)");
+
+
+    var kannada_vis = d3.select("#kannada")
+    .append("svg:svg")
+    .append("svg:g")
+    .attr("transform", "translate(20,-30)");
+
+    function subj_draw(data, div) {
+      var g = div.selectAll("g")
+      .data(data)
+      .enter().append("svg:g")
+      .attr("fill", function(d, i) { return colors[i]; })
+      .attr("transform", function(d, i) { return "translate(" + subj_y1(i) + ",0)"; });
+
+      var rect = g.selectAll("rect")
+      .data(function(data){return data;})
+      .enter().append("svg:rect")
+      .attr("transform", function(d, i) { return "translate(" + subj_y0(i) + ",0)"; })
+      .attr("width", subj_y1.rangeBand())
+      .attr("height", subj_x)
+      .transition()
+      .delay(50)
+      .attr("y", function(d) { return h - subj_x(d); });
+
+      var text = div.selectAll("text")
+      .data(d3.range(n))
+      .enter().append("svg:text")
+      .attr("class", "group")
+      .attr("transform", function(d, i) { return "translate(" + subj_y0(i) + ",0)"; })
+      .attr("x", subj_y0.rangeBand() / 2)
+      .attr("y", h + 6)
+      .attr("dy", ".51em")
+      .attr("text-anchor", "middle")
+      .attr("font-size", ".8em")
+      .text(function(d, i) { return years[i]; });
+
+    }
+
+    function subj_redraw(data, div) {
+      var g = div.selectAll("g");
+      g.data(data)
+      .attr("fill", function(d, i) { return colors[i]; })
+      .attr("transform", function(d, i) { return "translate(" + subj_y1(i) + ",0)"; });      
+
+      g.selectAll("rect")
+      .data(function(data){return data;})
+      .attr("transform", function(d, i) { return "translate(" + subj_y0(i) + ",0)"; })
+      .attr("width", subj_y1.rangeBand())
+      .attr("height", subj_x)
+      .transition()
+      .delay(50)
+      .attr("y", function(d) { return h - subj_x(d); });
+    }
