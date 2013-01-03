@@ -50,3 +50,30 @@ COPY (
 select eng.dist_code,"sch_cnt_E","eng_avg_E","kan_avg_E","sch_cnt_K","eng_avg_K","kan_avg_K",
 "sch_cnt_U","eng_avg_U","kan_avg_U","sch_cnt_O","eng_avg_O","kan_avg_O" from (select S.dist_code, S.sch_count as "sch_cnt_E", E."10_11e" as "eng_avg_E", E."10_11k" as "kan_avg_E" from tb_agg_moi_acadyr E left join (select dist_code, moi, sum(sch_count) as sch_count from tb_sslc_sch_agg group by dist_code,moi) as S on S.dist_code=E.dist_code where  E.moi='E' and E.moi=S.moi) as eng, (select S.dist_code, S.sch_count as "sch_cnt_K", K."10_11e" as "eng_avg_K", K."10_11k" as "kan_avg_K" from tb_agg_moi_acadyr K left join (select dist_code, moi, sum(sch_count) as sch_count from tb_sslc_sch_agg group by dist_code,moi) as S on S.dist_code=K.dist_code where K.moi='K' and K.moi=S.moi) as kan left outer join  (select S.dist_code, S.sch_count as "sch_cnt_U", U."10_11e" as "eng_avg_U", U."10_11k" as "kan_avg_U" from tb_agg_moi_acadyr U left join (select dist_code, moi, sum(sch_count) as sch_count from tb_sslc_sch_agg group by dist_code,moi) as S on S.dist_code=U.dist_code where  U.moi='U' and U.moi=S.moi) as urdu on kan.dist_code=urdu.dist_code left outer join (select S.dist_code, S.sch_count as "sch_cnt_O", O."10_11e" as "eng_avg_O", O."10_11k" as "kan_avg_O" from tb_agg_moi_acadyr O left join (select dist_code, moi, sum(sch_count) as sch_count from tb_sslc_sch_agg group by dist_code,moi) as S on S.dist_code=O.dist_code where O.moi='O' and O.moi=S.moi) as other on kan.dist_code=other.dist_code where eng.dist_code=kan.dist_code
 ) TO '/home/megha/misc/sslc_moi/data_bymoi_10_11.csv' WITH  DELIMITER '|' CSV HEADER;
+
+
+-- sudo -u postgres psql -d semis_data -f <this_query.sql>
+COPY(select lib.district, lib.score as has_library,lab.score as has_lab, clab.score as has_computer_lab,cadmin.score as has_computers_for_office_work, sickrm.score as has_first_aid_room, cant.score as has_canteen, bndry.score as has_pucca_boundary, bldg.score as has_pucca_bldg, playg.score as has_playground, elec.score as has_electricity, dw.score as has_drinking_water, intrnt.score as has_internet from 
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='library') as lib,
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='laboratory') as lab,
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='computer_lab') as clab,
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='computer_admin') as cadmin,
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='sickroom') as sickrm,
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='canteen') as cant,
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='boundary') as bndry,
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='building') as bldg,
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='playground') as playg,
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='electricity') as elec,
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='drinking_water') as dw,
+(select b.district,round((f.qualified_schools/b.total_schools)*100) as score from tb_semis_sch_agg b, tb_semis_facility_agg f where f.district=b.district and f.semis_criteria='internet') as intrnt
+where lib.district=lab.district 
+and lib.district=clab.district 
+and lib.district=cadmin.district 
+and lib.district=sickrm.district 
+and lib.district=cant.district 
+and lib.district=bndry.district
+and lib.district=bldg.district 
+and lib.district=playg.district 
+and lib.district=elec.district 
+and lib.district=dw.district 
+and lib.district=intrnt.district) TO '/home/megha/misc/semis/facilities.csv' WITH  DELIMITER '|' CSV HEADER;
