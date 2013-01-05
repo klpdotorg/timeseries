@@ -164,7 +164,11 @@ var n = 7, // number of samples
     y1 = d3.scale.ordinal().domain(d3.range(m)).rangeBands([0, y0.rangeBand()]),
     colors = ["#9ECAE1", "#08306B"];
 
-
+function pass_over(d){
+  d3.select("#percent").text(d);
+  console.log(d3.select(this).attr("class"));
+  change_year(years[d3.select(this).attr("class")]);
+}
     var vis = d3.select("#graphs")
     .append("svg:svg")
     .append("svg:g")
@@ -177,15 +181,32 @@ var n = 7, // number of samples
       .attr("fill", function(d, i) { return colors[i]; })
       .attr("transform", function(d, i) { return "translate(" + y1(i) + ",0)"; });
 
-      var rect = g.selectAll("rect")
+      var rect = g.selectAll("rect");
+
+      rect
       .data(function(data){return data;})
       .enter().append("svg:rect")
+      .on("mouseover", pass_over)
       .attr("transform", function(d, i) { return "translate(" + y0(i) + ",0)"; })
       .attr("width", y1.rangeBand())
       .attr("height", x)
+      .attr("class", function(d, i) {return i;})
       .transition()
       .delay(50)
       .attr("y", function(d) { return h - x(d); });
+
+     // rect.data(function(data){return data;})
+     // .enter()
+     // .append("text")
+     // .text(function(d) {return d;})
+     // .attr("transform", function(d, i) { return "translate(" + y0(i) + ",0)"; })
+     // .attr("x", y0.rangeBand() / 4)
+     //  .attr("y", h - 20)
+     //  .attr("dy", ".71em")
+     // .attr('text-anchor', 'middle')
+     // .attr("fill", "white");
+
+  rect.append("circle").attr("class","anchor").attr("r",4);
 
       var text = vis.selectAll("text")
       .data(d3.range(n))
@@ -247,7 +268,6 @@ function color_icons(code) {
   for (var i=0; i<govt.length; i++) {
     if (govt[i][0]<govt[i][1]) {
       d3.select("#bgg"+years[i]).select("#boy").transition().delay(200).attr("fill", "#098a05");
-
       d3.select("#bgg"+years[i]).select("#girl").attr("fill", "#a6a6a6");
     }
     else {

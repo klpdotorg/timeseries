@@ -36,6 +36,10 @@ font-family: 'Droid Sans', sans-serif;
 
 }
 
+#graphs rect:hover{
+	opacity: 0.5;
+}
+
 #subjects {
 	margin-top: 20px;
 }
