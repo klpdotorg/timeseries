@@ -108,6 +108,7 @@ function clicked(d, i, district){
     .on("mouseout", mouseout);
   };
   d3.select("#boygirl").classed("hide", false);
+  d3.select(".subject-title").classed("hide", false);
   color_icons(selected_district_data.properties['dist_code']);
   mouseover(selected_district_data);
 }

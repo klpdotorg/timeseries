@@ -42,6 +42,7 @@ font-family: 'Droid Sans', sans-serif;
 
 #subjects svg {
 	width: 100%;
+	background: none;
 }
 
 .row-fluid .bg {
@@ -267,4 +268,13 @@ hr {
 
 .infobg {
 	color: #7c7c7c;
+}
+
+.navbar .nav > li > a#header-infoname{
+	font-size: 20px;
+	color: black;
+}
+
+.subject-title {
+	text-align: center;
 }
