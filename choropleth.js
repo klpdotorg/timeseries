@@ -159,14 +159,12 @@ var n = 7, // number of samples
 
     var w = 435,
     h = 150,
-    x = d3.scale.linear().domain([50, 100]).range([h, 0]),
+    x = d3.scale.linear().domain([50, 100]).range([0, h]),
     y0 = d3.scale.ordinal().domain(d3.range(n)).rangeBands([0, w], .2),
     y1 = d3.scale.ordinal().domain(d3.range(m)).rangeBands([0, y0.rangeBand()]),
     colors = ["#9ECAE1", "#08306B"];
 
 function pass_over(d){
-  d3.select("#percent").text(d);
-  console.log(d3.select(this).attr("class"));
   change_year(years[d3.select(this).attr("class")]);
 }
     var vis = d3.select("#graphs")
@@ -205,8 +203,6 @@ function pass_over(d){
      //  .attr("dy", ".71em")
      // .attr('text-anchor', 'middle')
      // .attr("fill", "white");
-
-  rect.append("circle").attr("class","anchor").attr("r",4);
 
       var text = vis.selectAll("text")
       .data(d3.range(n))
@@ -291,7 +287,7 @@ function color_icons(code) {
 
     var subj_w = 250,
     subj_h = 60,
-    subj_x = d3.scale.linear().domain([50, 100]).range([subj_h, 0]),
+    subj_x = d3.scale.linear().domain([0, 100]).range([20, subj_h]),
     subj_y0 = d3.scale.ordinal().domain(d3.range(n)).rangeBands([0, subj_w], .2),
     subj_y1 = d3.scale.ordinal().domain(d3.range(m)).rangeBands([0, subj_y0.rangeBand()]);
 
@@ -312,6 +308,10 @@ function color_icons(code) {
     .append("svg:g")
     .attr("transform", "translate(20,-30)");
 
+    function subjects_over(d) {
+      d3.select("#percent").text(d);
+    }
+
     function subj_draw(data, div) {
       var g = div.selectAll("g")
       .data(data)
@@ -320,11 +320,14 @@ function color_icons(code) {
       .attr("transform", function(d, i) { return "translate(" + subj_y1(i) + ",0)"; });
 
       var rect = g.selectAll("rect")
+
+      rect
       .data(function(data){return data;})
       .enter().append("svg:rect")
       .attr("transform", function(d, i) { return "translate(" + subj_y0(i) + ",0)"; })
       .attr("width", subj_y1.rangeBand())
       .attr("height", subj_x)
+      // .attr("title", function(d){d+'%'})
       .transition()
       .delay(50)
       .attr("y", function(d) { return h - subj_x(d); });
@@ -340,6 +343,21 @@ function color_icons(code) {
       .attr("text-anchor", "middle")
       .attr("font-size", ".8em")
       .text(function(d, i) { return years[i]; });
+
+      div.selectAll("rect").each(function(d,i) {$(this).tipsy({gravity: 's', title: function(){return d+"%";}})});
+
+      // div.selectAll("rect").on("mouseover", subjects_over);
+      // div.selectAll("text.name")
+      // .data(data)
+      // .enter().append("text")
+      // .attr("class", "group")
+      // .attr("transform", function(d, i) { return "translate(" + subj_y0(i) + ",0)"; })
+      // .attr("x", subj_y0.rangeBand() / 2)
+      // .attr("y", h + 6)
+      // .attr("dy", ".3em")
+      // .attr("font-size", "")
+      // .text(function(d) {return d});
+
 
     }
 

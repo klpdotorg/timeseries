@@ -6,6 +6,8 @@ import collections
 def get_arrays(row):
     gov_array = []
     pvt_array = []
+    # gov_array.append(row['govt_pass'])
+    # pvt_array.append(row['pvt_pass'])
     gov_array.append(row['04_05g'])
     gov_array.append(row['05_06g'])
     gov_array.append(row['06_07g'])
@@ -20,7 +22,7 @@ def get_arrays(row):
     pvt_array.append(row['08_09n'])
     pvt_array.append(row['09_10n'])
     pvt_array.append(row['10_11n'])
-    return [pvt_array, gov_array]
+    return [gov_array, pvt_array]
     # for key in row.keys():
     #     if key != 'dist_code':
     #         if key.endswith('g'):
