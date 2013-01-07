@@ -344,7 +344,10 @@ function color_icons(code) {
       .attr("font-size", ".8em")
       .text(function(d, i) { return years[i]; });
 
-      div.selectAll("rect").each(function(d,i) {$(this).tipsy({gravity: 's', title: function(){return d+"%";}})});
+      div.selectAll("rect").each(function(d,i) {$(this).tipsy({gravity: 's', title: function(){
+        parent_svg = d3.select(div.node().parentNode);
+        parent_div = d3.select(parent_svg.node().parentNode);
+        return parent_div.attr("subject")+": "+d+"%";}})});
 
       // div.selectAll("rect").on("mouseover", subjects_over);
       // div.selectAll("text.name")
