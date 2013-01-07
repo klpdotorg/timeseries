@@ -236,11 +236,6 @@ function pass_over(d){
 
 /* Icons */
 
-
-function girl_mo(){
-  d3.select(this).attr("fill", "#ccc");
-}
-
 d3.xml("images/girl.svg", "image/svg+xml", function(xml) {
     imported_node = document.importNode(xml.documentElement, true);
     d3.selectAll(".bg").each(append_all);
@@ -256,7 +251,25 @@ var new_node = imported_node.cloneNode(true);
 d3.select(this).node().appendChild(new_node);
 }
 
-// d3.select("#bgg04-05").select("#girl").on("click", girl_mo);
+d3.selectAll('.bg').each(function(d,i){$(this).tipsy({gravity: 'ne', title: function(){
+  // parent_div = d3.select(this).node().parentNode;
+  year = d3.select(this).attr('year');
+  type = d3.select(this).attr('type');
+  code = selected_district_data.properties['dist_code'];
+  govt = girl_vs_boy[code][0];  
+  pvt = girl_vs_boy[code][1];
+  if (type == 'govt') {
+    var value_g = govt[years.indexOf(year)][0];
+    var value_b = govt[years.indexOf(year)][1];
+    return "Girls: "+value_g+"%, Boys: "+value_b+"%";
+  }
+
+  if (type == 'pvt') {
+    var value_g = pvt[years.indexOf(year)][0];
+    var value_b = pvt[years.indexOf(year)][1];
+    return "Girls: "+value_g+"%, Boys: "+value_b+"%";
+  };
+ }});});
 
 function color_icons(code) {
   var govt = girl_vs_boy[code][0];  
