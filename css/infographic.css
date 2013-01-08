@@ -297,3 +297,7 @@ hr {
 .subject-title {
 	text-align: center;
 }
+
+sup {
+	font-size: 12px;
+}
