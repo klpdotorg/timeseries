@@ -6,6 +6,7 @@
   var imported_node;
   var girl_vs_boy;
   var math, english, kannada;
+  var all_data;
 
   xy = d3.geo.mercator().translate([-4220,1140]).scale(21000),
   path = d3.geo.path().projection(xy);
@@ -32,11 +33,16 @@
   });
 
 
-  d3.json("data/data04-05.json", function(json) {
-    data = json;
+  d3.json("data/data.json", function(json) {
+    all_data = json;
+    initialize();
+  });
+
+  function initialize(){
+    data = all_data['04-05'][0];
     districts.selectAll("path")
     .attr("class", quantize);
-  });
+  };
 
   d3.json("data/govt_vs_non.json", function(json) {
     chart_data = json;
@@ -116,15 +122,13 @@
   function change_year(a) {
     d3.selectAll(".label").classed("label-info", false);
     d3.select(".year"+a).classed("label-info", true);
-    d3.json("data/data"+a+".json", function(json) {
-      data = json;
-      districts.selectAll("path")
-      .attr("class", quantize)
-      if (clicked_flag) {
-        d3.select(selected_district).classed("clicked", true);
-        mouseover(selected_district_data);
-      };
-    });
+    data = all_data[a][0];
+    districts.selectAll("path")
+    .attr("class", quantize)
+    if (clicked_flag) {
+      d3.select(selected_district).classed("clicked", true);
+      mouseover(selected_district_data);
+    };
   }
 
   var start = d3.select("#start");
