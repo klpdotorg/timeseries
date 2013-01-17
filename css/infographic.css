@@ -64,6 +64,15 @@ text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
 	opacity: 0.2;
 }
 
+#bubble {
+	padding-top: 30px;
+	width: 500px;
+}
+
+#bubble svg {
+	background: none;
+}
+
 .row-fluid .bg {
 	width: 117px;
 }

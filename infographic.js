@@ -7,6 +7,7 @@
   var girl_vs_boy;
   var math, english, kannada;
   var all_data;
+  var moi;
 
   xy = d3.geo.mercator().translate([-4220,1140]).scale(21000),
   path = d3.geo.path().projection(xy);
@@ -65,6 +66,10 @@
     kannada = json;
   });
 
+  d3.json("data/moi.json", function(json) {
+    moi = json;
+  });
+
   function quantize(d) {
     district_data = data[d.properties['dist_code']];
     color = "q" + Math.min(7, ~~(district_data[0]['govt_pass'] / 20)) + "-9";
@@ -98,6 +103,7 @@
       subj_draw(math[selected_district_data.properties['dist_code']], math_vis);
       subj_draw(english[selected_district_data.properties['dist_code']], english_vis);
       subj_draw(kannada[selected_district_data.properties['dist_code']], kannada_vis);
+      bubble_draw(selected_district_data.properties['dist_code']);
       clicked_flag = true;
     }
     else {
@@ -109,25 +115,28 @@
       subj_redraw(math[selected_district_data.properties['dist_code']], math_vis);
       subj_redraw(english[selected_district_data.properties['dist_code']], english_vis);
       subj_redraw(kannada[selected_district_data.properties['dist_code']], kannada_vis);
+      bubble_redraw(selected_district_data.properties['dist_code']);
       all_districts
       .on("mouseover", mouseover)
       .on("mouseout", mouseout);
     };
-    d3.select("#boygirl").classed("hide", false);
+    d3.select("#gender").classed("hide", false);
     d3.select(".subject-title").classed("hide", false);
+    d3.select("#medium").classed("hide", false);
     color_icons(selected_district_data.properties['dist_code']);
     mouseover(selected_district_data);
   }
 
   function change_year(a) {
     d3.selectAll(".label").classed("label-info", false);
-    d3.select(".year"+a).classed("label-info", true);
+    d3.selectAll(".year"+a).classed("label-info", true);
     data = all_data[a][0];
     districts.selectAll("path")
     .attr("class", quantize)
     if (clicked_flag) {
       d3.select(selected_district).classed("clicked", true);
       mouseover(selected_district_data);
+      bubble_redraw(selected_district_data.properties['dist_code'], a);
     };
   }
 
@@ -396,3 +405,70 @@
         .delay(50)
         .attr("y", function(d) { return h - subj_x(d); });
       }
+
+
+/* Bubble chart */
+
+var diameter = 500,
+    format = d3.format(",d"),
+    bubble_color = ["#3182bd", "#e6550d", "#31a354", "#636363"];
+
+var bubble = d3.layout.pack()
+    .sort(null)
+    .size([diameter, diameter])
+    .padding(1.5);
+
+var bubble_svg = d3.select("#bubble").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter)
+    .attr("class", "bubble");
+
+// d3.json("data/moi04-05.json", function(json) {
+//   // console.log(bubble.nodes(json["BE"][0]));
+function bubble_draw(code, year="04-05") {
+  bubble_data = moi[year][0][code][0];
+  console.log(bubble_data);
+  var node = bubble_svg.selectAll(".node")
+        .data(bubble.nodes(classes(bubble_data))
+          .filter(function(d) { return !d.children; }))
+      .enter().append("g")
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+  node.append("title")
+      .text(function(d) { return d.name + ": " + format(d.value); });
+
+  node.append("circle")
+      .transition()
+      .delay(50)
+      .attr("r", function(d, i) { return d.r; })
+      .style("fill", function(d,i) {return bubble_color[i]});
+
+  node.append("text")
+      .attr("dy", ".3em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.name.substring(0, d.r / 3) +" - "+String(d.value).substring(0, d.r/3); });
+};
+
+function bubble_redraw(code, year="04-05") {
+  bubble_data = moi[year][0][code][0];
+  var node = bubble_svg.selectAll(".node")
+    .data(bubble.nodes(classes(bubble_data))
+      .filter(function(d) {return !d.children;}))
+    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+  node.select("title").text(function(d) {return d.name + ": " + format(d.value);});
+  node.select("circle").transition().delay(50).attr("r", function(d,i) {return d.r; })
+   .style("fill", function(d,i) {return bubble_color[i]});
+  node.select("text").text(function(d) { return d.name.substring(0, d.r / 3) +" - "+String(d.value).substring(0, d.r/3); });  
+
+}
+
+function classes(root) {
+  names = ["English", "Kannada", "Urdu", "Others"]
+  var classes = [];
+  root.forEach(function(val,i) {classes.push({name:names[i],value:Number(val)})});
+  return {children:classes};
+}
+
+d3.select(self.frameElement).style("height", diameter + "px");
