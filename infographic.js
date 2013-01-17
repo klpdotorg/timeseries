@@ -425,7 +425,10 @@ var bubble_svg = d3.select("#bubble").append("svg")
 
 // d3.json("data/moi04-05.json", function(json) {
 //   // console.log(bubble.nodes(json["BE"][0]));
-function bubble_draw(code, year="04-05") {
+function bubble_draw(code, year) {
+  if (!year) {
+    year = '04-05';
+  };
   bubble_data = moi[year][0][code][0];
   console.log(bubble_data);
   var node = bubble_svg.selectAll(".node")
@@ -450,7 +453,10 @@ function bubble_draw(code, year="04-05") {
       .text(function(d) { return d.name.substring(0, d.r / 3) +" - "+String(d.value).substring(0, d.r/3); });
 };
 
-function bubble_redraw(code, year="04-05") {
+function bubble_redraw(code, year) {
+    if (!year) {
+    year = '04-05';
+  };
   bubble_data = moi[year][0][code][0];
   var node = bubble_svg.selectAll(".node")
     .data(bubble.nodes(classes(bubble_data))
