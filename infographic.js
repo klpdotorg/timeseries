@@ -142,7 +142,7 @@ function change_year(a) {
 
 var start = d3.select("#start");
 start.on("click", play);
-years = ['04-05', '05-06', '06-07', '07-08', '08-09', '09-10', '10-11'];
+years = ['04-05', '05-06', '06-07', '07-08', '08-09', '09-10', '10-11', '11-12'];
 var i = 0;
 
 function play() {
@@ -167,7 +167,7 @@ function update_year() {
 
 /* Code for graphs */
 
-  var n = 7, // number of samples
+  var n = 8, // number of samples
       m = 2; // number of series
 
       var w = 435,
