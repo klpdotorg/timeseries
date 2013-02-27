@@ -82,7 +82,6 @@
    d3.select("#info").classed("hide", false);
    d3.select("#intro").classed("hide", true);
    d3.select("#infoname").text(d.properties['DISTSHP']);
-   d3.select("#header-infoname").text(d.properties['DISTSHP']);
    d3.select("#infoyear").text(district_data[0]['acad_year']);
    d3.select("#infovalueg").text(district_data[0]['govt_pass']+"%");
    d3.select("#infovaluep").text(district_data[0]['nongovt_pass']+"%");
