@@ -27,9 +27,10 @@
     .enter().append("path")
     .attr("class", data ? quantize : null)
     .attr("d", path)
+    .attr("id", function(d){return d.properties['dist_code'];})
     .on("mouseover", mouseover)
     .on("mouseout", mouseout)
-    .on("click", function(d,i) { clicked(d, i, this); });
+    .on("click", function(d) { clicked(d, this); });
 
   });
 
@@ -92,7 +93,7 @@
   d3.select("#intro").classed("hide", false);
 }
 
-function clicked(d, i, district){
+function clicked(d, district){
   selected_district_data = d;
   if (clicked_flag == false) {
     selected_district = district;
@@ -125,6 +126,7 @@ function clicked(d, i, district){
   d3.select("#medium").classed("hide", false);
   color_icons(selected_district_data.properties['dist_code']);
   mouseover(selected_district_data);
+ $("#search").select2("val", selected_district_data.properties['dist_code']);
 }
 
 function change_year(a) {
@@ -465,3 +467,9 @@ function classes(root) {
 }
 
 d3.select(self.frameElement).style("height", diameter + "px");
+
+/* Auto-complete search */
+
+$("#search").select2({placeholder: 'Search for a District', width: '200px'});
+$("#search").on("change", function(e){var search_sel = d3.select('#'+e.val)[0][0]; var search_d = search_sel.__data__;
+  clicked(search_d, search_sel)});
