@@ -8,11 +8,13 @@
   <script type="text/javascript" src="lib/jquery/jquery.tipsy.js"></script>
   <script type="text/javascript" src="d3/d3.v2.js"></script>
   <script type="text/javascript" src="lib/bootstrap/js/bootstrap.js"></script>
+  <script type="text/javascript"src="lib/select/select2.min.js"></script>       
   <link type="text/css" href="lib/bootstrap/css/bootstrap.css" rel="stylesheet"/>
   <link type="text/css" rel="stylesheet" href="lib/colorbrewer/colorbrewer.css"/>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>      
   <link type="text/css" rel="stylesheet" href="css/infographic.css"/>
-  <link href="css/tipsy.css" rel="stylesheet" type="text/css" />       
+  <link href="css/tipsy.css" rel="stylesheet" type="text/css" />
+  <link href="lib/select/select2.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -25,166 +27,202 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Seven years of SSLC in Karnataka <sup>beta</sup></a>
+          <a class="brand" href="#">Eight years of SSLC in Karnataka <sup>beta</sup></a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li><a href="#" id="header-infoname"></a></li>
               <li class="divider-vertical"></li>
               <li><a href="#subjects">Subject</a></li>
               <li><a href="#gender">Gender</a></li>
               <li><a href="#medium">Medium</a></li>
               <li class="divider-vertical"></li>
-              <li><a href="#">Top</a></li>
+              <li><a href="#">Map</a></li>
             </ul>
-          </div><!--/.nav-collapse -->
+          </div>
+          <div class="navbar-search pull-left">
+           <select id="search" class="span2" data-placeholder="Search for a District">
+            <option></option>
+            <option value="OA">Bagalkote</option>
+            <option value="BR">Bangalore Rural</option>
+            <option value="BG">Bangalore Urban</option>
+            <option value="BE">Belgaum</option>
+            <option value="TT">Bellary</option>
+            <option value="SS">Bidar</option>
+            <option value="OO">Bijapur</option>
+            <option value="EA">Chamarajanagar</option>
+            <option value="JJ">Chikmagalur</option>
+            <option value="II">Chitradurga</option>
+            <option value="GG">Dakshin Kannada</option>
+            <option value="IA">Davanagere</option>
+            <option value="MM">Dharwad</option>
+            <option value="MB">Gadag</option>
+            <option value="QQ">Gulbarga</option>
+            <option value="LL">Hassan</option>
+            <option value="MA">Haveri</option>
+            <option value="HH">Kodagu</option>
+            <option value="KO">Kolar</option>
+            <option value="RA">Koppal</option>
+            <option value="FF">Mandya</option>
+            <option value="EE">Mysore</option>
+            <option value="RR">Raichur</option>
+            <option value="KK">Shimoga</option>
+            <option value="TU">Tumkur</option>
+            <option value="GA">Udupi</option>
+            <option value="UK">Uttar Kannada</option>
+          </select>
         </div>
       </div>
     </div>
-    <div class="container">
-      <div class="row-fluid" id="#">
-        <div class="span6">
-          <div class="row-fluid">
-            <div id="chart"></div>
+  </div>
+  <div class="container">
+    <div class="row-fluid" id="#">
+      <div class="span6">
+        <div class="row-fluid">
+          <div id="chart"></div>
+        </div>
+        <div class="row-fluid">
+          <div class="span6">
+            <div id="legend">
+              <ul>
+                <li class="q1-9"></li>
+                <li class="q2-9"></li>
+                <li class="q3-9"></li>
+                <li class="q4-9"></li>
+                <li class="q5-9"></li>
+                <li class="q6-9"></li>
+                <li class="q7-9"></li>
+                <li class="q8-9"></li>
+              </ul>
+              <p class="less">5%</p>
+              <p class="more">100%</p>
+            </div>
           </div>
-          <div class="row-fluid">
-            <div class="span6">
-              <div id="legend">
-                <ul>
-                  <li class="q1-9"></li>
-                  <li class="q2-9"></li>
-                  <li class="q3-9"></li>
-                  <li class="q4-9"></li>
-                  <li class="q5-9"></li>
-                  <li class="q6-9"></li>
-                  <li class="q7-9"></li>
-                  <li class="q8-9"></li>
-                </ul>
-                <p class="less">5%</p>
-                <p class="more">100%</p>
-              </div>
-            </div>
-            <div class="span4">
-              <a href="javascript:change_year('04-05')" class="label label-info year04-05">2004-2005</a>
-              <a href="javascript:change_year('05-06')" class="label year05-06">2005-2006</a>
-              <a href="javascript:change_year('06-07')" class="label year06-07">2006-2007</a>
-              <a href="javascript:change_year('07-08')" class="label year07-08">2007-2008</a>
-              <a href="javascript:change_year('08-09')" class="label year08-09">2008-2009</a>
-              <a href="javascript:change_year('09-10')" class="label year09-10">2009-2010</a>
-              <a href="javascript:change_year('10-11')" class="label year10-11">2010-2011</a>
-            </div>
-            <div class="span2">
-              <button id="start" class="btn btn-info play"><i class="icon-play"></i></button>
-            </div>
+          <div class="span4">
+            <a href="javascript:change_year('04-05')" class="label label-info year04-05">2004-2005</a>
+            <a href="javascript:change_year('05-06')" class="label year05-06">2005-2006</a>
+            <a href="javascript:change_year('06-07')" class="label year06-07">2006-2007</a>
+            <a href="javascript:change_year('07-08')" class="label year07-08">2007-2008</a>
+            <a href="javascript:change_year('08-09')" class="label year08-09">2008-2009</a>
+            <a href="javascript:change_year('09-10')" class="label year09-10">2009-2010</a>
+            <a href="javascript:change_year('10-11')" class="label year10-11">2010-2011</a>
+            <a href="javascript:change_year('11-12')" class="label year11-12">2011-2012</a>
+          </div>
+          <div class="span2">
+            <button id="start" class="btn btn-info play"><i class="icon-play"></i></button>
           </div>
         </div>
-        <div class="span6">
-          <div class="row-fluid">
-            <div class="infobox hero-unit value">
-              <div id="intro">
-                <p>Hover or click a district.</p>
-              </div>
-              <div id="info" class="hide">
-                <p id="infoyear" class="year"></p>
-                <h2 id="infoname" class="name"></h2>
-                <hr>
-                <div class="row-fluid">
-                  <div class="span6">
-                    <div class="vr">
-                      <h5>Government</h5>
-                      <h1 id="infovalueg"></h1>
-                    </div>
+      </div>
+      <div class="span6">
+        <div class="row-fluid">
+          <div class="infobox hero-unit value">
+            <div id="intro">
+              <p>Hover or click a district.</p>
+            </div>
+            <div id="info" class="hide">
+              <p id="infoyear" class="year"></p>
+              <h2 id="infoname" class="name"></h2>
+              <hr>
+              <div class="row-fluid">
+                <div class="span6">
+                  <div class="vr">
+                    <h5>Government</h5>
+                    <h1 id="infovalueg"></h1>
                   </div>
-                  <div class="span4 offset1">
-                    <h5>Private</h5>
-                    <h1 id="infovaluep"></h1>
-                  </div>
+                </div>
+                <div class="span4 offset1">
+                  <h5>Private</h5>
+                  <h1 id="infovaluep"></h1>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="span6">
-          <div id="graphs">
-            <h4>Government and Private schools performance.</h4>
-          </div>
+      </div>
+      <div class="span6">
+        <div id="graphs">
+          <h4>Government and Private schools performance.</h4>
         </div>
       </div>
-      <div class="row-fluid" id="subjects">
-        <div class="span4"> <div id="math" subject="Mathematics"></div></div>
-        <div class="span4"> <div id="kannada" subject="Kannada"></div></div>
-        <div class="span4"> <div id="english" subject="English"></div></div>
-      </div>
-      <div class="row-fluid hide subject-title">
-        <div class="span4">Mathematics</div>
-        <div class="span4">Kannada</div>
-        <div class="span4">English</div> 
-      </div>
+    </div>
+    <div class="row-fluid" id="subjects">
+      <div class="span4"> <div id="math" subject="Mathematics"></div></div>
+      <div class="span4"> <div id="kannada" subject="Kannada"></div></div>
+      <div class="span4"> <div id="english" subject="English"></div></div>
+    </div>
+    <div class="row-fluid hide subject-title">
+      <div class="span4">Mathematics</div>
+      <div class="span4">Kannada</div>
+      <div class="span4">English</div> 
+    </div>
 
-      <div class="container hide" id="gender">
-        <div class="row-fluid  gender"><h4>Who is performing better?</h4></div>
-        <div class="row-fluid infobg">
-          <!-- <div class="span2 boygirl"></div> -->
-          <div class="span12">
-            <div id="bgg04-05" year="04-05" type="govt" class="span3 bg"></div>
-            <div id="bgg05-06" year="05-06" type="govt" class="span3 bg"></div>
-            <div id="bgg06-07" year="06-07" type="govt" class="span3 bg"></div>
-            <div id="bgg07-08" year="07-08" type="govt" class="span3 bg"></div>
-            <div id="bgg08-09" year="08-09" type="govt" class="span3 bg"></div>
-            <div id="bgg09-10" year="09-10" type="govt" class="span3 bg"></div>
-            <div id="bgg10-11" year="10-11" type="govt" class="span3 bg"></div>
-          </div>
-        </div>
-        <div class="row-fluid infobg">
-          <div class="span3 offset5"><h5>Government</h5></div>
-        </div>
-        <div class="row-fluid yearbg">
-          <div class="span1 field">04-05</div>
-          <div class="span1 field">05-06</div>
-          <div class="span1 field">06-07</div>
-          <div class="span1 field">07-08</div>
-          <div class="span1 field">08-09</div>
-          <div class="span1 field">09-10</div>
-          <div class="span1 field">10-11</div>
-        </div>
-        <div class="row-fluid infobg">
-          <div class="span3 offset5"><h5>Private</h5></div>
-        </div>
-        <div class="row-fluid infobg">
-          <div class="span12"> 
-            <div id="bgp04-05" year="04-05" type="pvt" class="span3 bg"></div>
-            <div id="bgp05-06" year="05-06" type="pvt" class="span3 bg"></div>
-            <div id="bgp06-07" year="06-07" type="pvt" class="span3 bg"></div>
-            <div id="bgp07-08" year="07-08" type="pvt" class="span3 bg"></div>
-            <div id="bgp08-09" year="08-09" type="pvt" class="span3 bg"></div>
-            <div id="bgp09-10" year="09-10" type="pvt" class="span3 bg"></div>
-            <div id="bgp10-11" year="10-11" type="pvt" class="span3 bg"></div>
-          </div>
+    <div class="container hide" id="gender">
+      <div class="row-fluid  gender"><h4>Who is performing better?</h4></div>
+      <div class="row-fluid infobg">
+        <!-- <div class="span2 boygirl"></div> -->
+        <div class="span12">
+          <div id="bgg04-05" year="04-05" type="govt" class="span1 bg"></div>
+          <div id="bgg05-06" year="05-06" type="govt" class="span1 bg"></div>
+          <div id="bgg06-07" year="06-07" type="govt" class="span1 bg"></div>
+          <div id="bgg07-08" year="07-08" type="govt" class="span1 bg"></div>
+          <div id="bgg08-09" year="08-09" type="govt" class="span1 bg"></div>
+          <div id="bgg09-10" year="09-10" type="govt" class="span1 bg"></div>
+          <div id="bgg10-11" year="10-11" type="govt" class="span1 bg"></div>
+          <div id="bgg11-12" year="10-11" type="govt" class="span1 bg"></div>
         </div>
       </div>
-      <div class="container hide" id="medium">
-        <div class="row-fluid">
+      <div class="row-fluid infobg">
+        <div class="span3 offset5"><h5>Government</h5></div>
+      </div>
+      <div class="row-fluid yearbg">
+        <div class="span1 field">04-05</div>
+        <div class="span1 field">05-06</div>
+        <div class="span1 field">06-07</div>
+        <div class="span1 field">07-08</div>
+        <div class="span1 field">08-09</div>
+        <div class="span1 field">09-10</div>
+        <div class="span1 field">10-11</div>
+        <div class="span1 field">11-12</div>
+      </div>
+      <div class="row-fluid infobg">
+        <div class="span3 offset5"><h5>Private</h5></div>
+      </div>
+      <div class="row-fluid infobg">
+        <div class="span12"> 
+          <div id="bgp04-05" year="04-05" type="pvt" class="span1 bg"></div>
+          <div id="bgp05-06" year="05-06" type="pvt" class="span1 bg"></div>
+          <div id="bgp06-07" year="06-07" type="pvt" class="span1 bg"></div>
+          <div id="bgp07-08" year="07-08" type="pvt" class="span1 bg"></div>
+          <div id="bgp08-09" year="08-09" type="pvt" class="span1 bg"></div>
+          <div id="bgp09-10" year="09-10" type="pvt" class="span1 bg"></div>
+          <div id="bgp10-11" year="10-11" type="pvt" class="span1 bg"></div>
+          <div id="bgp11-12" year="11-12" type="pvt" class="span1 bg"></div>
+        </div>
+      </div>
+    </div>
+    <div class="container hide" id="medium">
+      <div class="row-fluid">
         <div class="span4 offset3">
           <div id="bubble"></div>
         </div>
       </div>
       <div class="row-fluid">
-          <div class="span8 offset3">
-              <a href="javascript:change_year('04-05')" class="label label-info year04-05">2004-2005</a>
-              <a href="javascript:change_year('05-06')" class="label year05-06">2005-2006</a>
-              <a href="javascript:change_year('06-07')" class="label year06-07">2006-2007</a>
-              <a href="javascript:change_year('07-08')" class="label year07-08">2007-2008</a>
-              <a href="javascript:change_year('08-09')" class="label year08-09">2008-2009</a>
-              <a href="javascript:change_year('09-10')" class="label year09-10">2009-2010</a>
-              <a href="javascript:change_year('10-11')" class="label year10-11">2010-2011</a>
-            </div>
+        <div class="span8 offset3">
+          <a href="javascript:change_year('04-05')" class="label label-info year04-05">2004-2005</a>
+          <a href="javascript:change_year('05-06')" class="label year05-06">2005-2006</a>
+          <a href="javascript:change_year('06-07')" class="label year06-07">2006-2007</a>
+          <a href="javascript:change_year('07-08')" class="label year07-08">2007-2008</a>
+          <a href="javascript:change_year('08-09')" class="label year08-09">2008-2009</a>
+          <a href="javascript:change_year('09-10')" class="label year09-10">2009-2010</a>
+          <a href="javascript:change_year('10-11')" class="label year10-11">2010-2011</a>
+          <a href="javascript:change_year('11-12')" class="label year11-12">2011-2012</a>
+        </div>
       </div>
-      </div>
-
-      <!-- <div class="row-fluid">Performance in major subjects</div> -->
-
     </div>
+
+    <!-- <div class="row-fluid">Performance in major subjects</div> -->
+
   </div>
-  <div id="push"></div>
+</div>
+<div id="push"></div>
 </div>
 <div id="footer">
   <div class="container">
