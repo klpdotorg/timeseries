@@ -27,9 +27,10 @@
     .enter().append("path")
     .attr("class", data ? quantize : null)
     .attr("d", path)
+    .attr("id", function(d){return d.properties['dist_code'];})
     .on("mouseover", mouseover)
     .on("mouseout", mouseout)
-    .on("click", function(d,i) { clicked(d, i, this); });
+    .on("click", function(d) { clicked(d, this); });
 
   });
 
@@ -81,7 +82,6 @@
    d3.select("#info").classed("hide", false);
    d3.select("#intro").classed("hide", true);
    d3.select("#infoname").text(d.properties['DISTSHP']);
-   d3.select("#header-infoname").text(d.properties['DISTSHP']);
    d3.select("#infoyear").text(district_data[0]['acad_year']);
    d3.select("#infovalueg").text(district_data[0]['govt_pass']+"%");
    d3.select("#infovaluep").text(district_data[0]['nongovt_pass']+"%");
@@ -92,7 +92,7 @@
   d3.select("#intro").classed("hide", false);
 }
 
-function clicked(d, i, district){
+function clicked(d, district){
   selected_district_data = d;
   if (clicked_flag == false) {
     selected_district = district;
@@ -125,6 +125,7 @@ function clicked(d, i, district){
   d3.select("#medium").classed("hide", false);
   color_icons(selected_district_data.properties['dist_code']);
   mouseover(selected_district_data);
+ $("#search").select2("val", selected_district_data.properties['dist_code']);
 }
 
 function change_year(a) {
@@ -142,7 +143,7 @@ function change_year(a) {
 
 var start = d3.select("#start");
 start.on("click", play);
-years = ['04-05', '05-06', '06-07', '07-08', '08-09', '09-10', '10-11'];
+years = ['04-05', '05-06', '06-07', '07-08', '08-09', '09-10', '10-11', '11-12'];
 var i = 0;
 
 function play() {
@@ -167,7 +168,7 @@ function update_year() {
 
 /* Code for graphs */
 
-  var n = 7, // number of samples
+  var n = 8, // number of samples
       m = 2; // number of series
 
       var w = 435,
@@ -465,3 +466,9 @@ function classes(root) {
 }
 
 d3.select(self.frameElement).style("height", diameter + "px");
+
+/* Auto-complete search */
+
+$("#search").select2({placeholder: 'Search for a District', width: '200px'});
+$("#search").on("change", function(e){var search_sel = d3.select('#'+e.val)[0][0]; var search_d = search_sel.__data__;
+  clicked(search_d, search_sel)});
