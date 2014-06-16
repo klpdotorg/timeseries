@@ -14,6 +14,7 @@ def get_arrays(row):
     gov_array.append([row['09_10g_G'], row['09_10b_G']])
     gov_array.append([row['10_11g_G'], row['10_11b_G']])
     gov_array.append([row['11_12g_G'], row['11_12b_G']])
+    gov_array.append([row['12_13g_G'], row['12_13b_G']])
     # pvt_file = open("girl_vs_boy_p_aggregate.csv", 'r')
     # pvt_reader = csv.DictReader(pvt_file, fieldnames=pvt_file.next().strip(' \n\r').split(','))
     # for pvt_row in pvt_reader:
@@ -26,6 +27,7 @@ def get_arrays(row):
     pvt_array.append([row['09_10g_N'], row['09_10b_N']])
     pvt_array.append([row['10_11g_N'], row['10_11b_N']])
     pvt_array.append([row['11_12g_N'], row['11_12b_N']])
+    pvt_array.append([row['12_13g_N'], row['12_13b_N']])
     return [gov_array, pvt_array]
 
 csv_file = open(sys.argv[1], 'r')
