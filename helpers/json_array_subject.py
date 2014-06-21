@@ -15,6 +15,7 @@ def get_arrays(row):
     gov_array.append(row['09_10_g'])
     gov_array.append(row['10_11_g'])
     gov_array.append(row['11_12_g'])
+    gov_array.append(row['12_13_g'])
     pvt_array.append(row['04_05_p'])
     pvt_array.append(row['05_06_p'])
     pvt_array.append(row['06_07_p'])
@@ -23,6 +24,7 @@ def get_arrays(row):
     pvt_array.append(row['09_10_p'])
     pvt_array.append(row['10_11_p'])
     pvt_array.append(row['11_12_p'])
+    pvt_array.append(row['12_13_p'])
     # for key in row.keys():
     #     if key != 'dist_code':
     #         if key.endswith('g'):
